@@ -4,6 +4,8 @@
 
 #include "gesture_acts.h"
 
+using namespace std;
+
 datarow::datarow(double d1, double d2, double d3, double d4, double d5, double d6, int t){
     acc_x = d1, acc_y = d2, acc_z = d3;
     gyr_x = d4, gyr_y = d5, gyr_z = d6;
@@ -22,19 +24,31 @@ map<int, string> gesture_acts::gname_map = {
     { 32, "character w" }, { 33, "character x" }, { 34, "character y" }, { 35, "character z" },
     { 36, "to right" }, { 37, "to left" }, { 38, "up" }, { 39, "down" },
     { 40, "right angle" }, { 41, "left angle" }, { 42, "up angle" }, { 43, "down angle" },
-    { 44, "clockwise" }, { 45, "counter-clockwise" }
+    { 44, "clockwise" }, { 45, "counter-clockwise" }, { -1, "" }
 };
 
 ostream &operator<<(ostream &os, const gesture_acts &ga){
     os << "Gesture [" << ga.gname_map.at(ga.gid);
-    os << "] acts_id:" << ga.id << " user_id:" << ga.uid << " age:" << ga.age;
+    os << "] acts_id:" << ga.id;
+    //if(ga.uid != (char*)nullptr)
+        os << " user_id:" << ga.uid;
+    os << " age:" << ga.age;
     os << " gender:" << (ga.gender ? "male" : "female");
     os << " hand:" << (ga.hand ? "right" : "left");
     os << " vector_size:" << ga.vec_dr.size();
     return os;
 }
 
-gesture_acts::gesture_acts(int id, char *uid, int age, int gender, int hand, int gid){
+gesture_acts::gesture_acts(){
+    this->id = 0;
+    this->uid = "";
+    this->age = 0;
+    this->gender = false;
+    this->hand = false;
+    this->gid = -1;
+}
+
+void gesture_acts::set(int id, char *uid, int age, int gender, int hand, int gid){
     this->id = id;
     this->uid = uid;
     this->age = age;
@@ -47,7 +61,7 @@ int gesture_acts::get_id(){
     return id;
 }
 
-vector<datarow> gesture_acts::get_vec(){
+vector<datarow> &gesture_acts::get_vec(){
     return vec_dr;
 }
 

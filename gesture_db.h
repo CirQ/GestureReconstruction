@@ -12,8 +12,6 @@
 
 #define DB_NAME "GESTURE.db"
 
-using namespace std;
-
 class gesture_db{
 private:
     static const char *db_name;

@@ -9,8 +9,6 @@
 #include <vector>
 #include <map>
 
-using namespace std;
-
 class datarow{
 public:
     double acc_x, acc_y, acc_z;
@@ -20,21 +18,22 @@ public:
 };
 
 class gesture_acts{
-    friend ostream &operator<<(ostream&, const gesture_acts&);
+    friend std::ostream &operator<<(std::ostream&, const gesture_acts&);
 private:
-    static const map<int, string> gname_map;
+    static std::map<int, std::string> gname_map;
     int id;
-    string uid;
+    std::string uid;
     int age;
     bool gender;    // true for male and false for female
     bool hand;      // true for right and false for left
     int gid;
-    vector<datarow> vec_dr;
+    std::vector<datarow> vec_dr;
 
 public:
-    gesture_acts(int, char*, int, int, int, int);
+    gesture_acts();
+    void set(int, char*, int, int, int, int);
     int get_id();
-    vector<datarow> get_vec();
+    std::vector<datarow> &get_vec();
 };
 
 #endif //GESTURERECONSTRUCTION_GESTURE_ACTS_H

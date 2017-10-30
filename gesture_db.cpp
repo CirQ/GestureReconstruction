@@ -4,6 +4,8 @@
 
 #include "gesture_db.h"
 
+using namespace std;
+
 const char *gesture_db::db_name = DB_NAME;
 
 gesture_db::gesture_db(){
@@ -18,7 +20,6 @@ gesture_db::gesture_db(){
 }
 
 gesture_db::~gesture_db(){
-    sqlite3_finalize(stmt);
     sqlite3_close(db);
     cout << "[SUCCESS] database closed" << endl;
 }
@@ -35,7 +36,7 @@ void gesture_db::load_acts(int id, gesture_acts &ga){
             int male = sqlite3_column_int(stmt, 2);
             int right_hand = sqlite3_column_int(stmt, 3);
             int gid = sqlite3_column_int(stmt, 4);
-            ga = gesture_acts(id, uid, age, male, right_hand, gid);
+            ga.set(id, uid, age, male, right_hand, gid);
             cout << "[SUCCESS] successfully load acts data with user information" << endl;
         }
     } else{
@@ -50,7 +51,7 @@ void gesture_db::load_datarows(gesture_acts &ga){
     int rc = sqlite3_prepare_v2(db, sql.c_str(), (int)sql.size(), &stmt, nullptr);
     if(rc == SQLITE_OK){
         sqlite3_bind_int(stmt, 1, ga.get_id());
-        auto vec = ga.get_vec();
+        vector<datarow> &vec = ga.get_vec();
         while(sqlite3_step(stmt) == SQLITE_ROW) {
             double d1 = sqlite3_column_double(stmt, 0);
             double d2 = sqlite3_column_double(stmt, 1);
