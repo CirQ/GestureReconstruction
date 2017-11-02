@@ -11,7 +11,7 @@ const char *gesture_db::db_name = DB_NAME;
 gesture_db::gesture_db(){
     int rc = sqlite3_open(db_name, &db);
     if(rc != SQLITE_OK){
-        cerr << "[ERROR] cannot open database: \n" << sqlite3_errmsg(db) << endl;
+        cerr << "[ERROR] cannot open database:\n" << sqlite3_errmsg(db) << endl;
         sqlite3_close(db);
         exit(EXIT_FAILURE);
     }
@@ -59,7 +59,7 @@ void gesture_db::load_datarows(gesture_acts &ga){
             double d4 = sqlite3_column_double(stmt, 3);
             double d5 = sqlite3_column_double(stmt, 4);
             double d6 = sqlite3_column_double(stmt, 5);
-            int timestamp = sqlite3_column_int(stmt, 6);
+            long long timestamp = static_cast<long long>(sqlite3_column_int64(stmt, 6));
             datarow dr(d1, d2, d3, d4, d5, d6, timestamp);
             vec.push_back(dr);
         }

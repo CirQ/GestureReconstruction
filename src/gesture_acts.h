@@ -10,11 +10,12 @@
 #include <map>
 
 class datarow{
+    friend std::ostream &operator<<(std::ostream&, const datarow&);
 public:
     double acc_x, acc_y, acc_z;
     double gyr_x, gyr_y, gyr_z;
-    int timestamp;
-    datarow(double, double, double, double, double, double, int);
+    long long timestamp;
+    datarow(double, double, double, double, double, double, long long);
 };
 
 class gesture_acts{

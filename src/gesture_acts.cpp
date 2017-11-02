@@ -6,7 +6,13 @@
 
 using namespace std;
 
-datarow::datarow(double d1, double d2, double d3, double d4, double d5, double d6, int t){
+ostream &operator<<(ostream &os, const datarow &dr){
+    os << "datarow<ACC(" << dr.acc_x << ", " << dr.acc_y << ", " << dr.acc_z << "), GYR("
+       << dr.gyr_x << ", " << dr.gyr_y << ", " << dr.gyr_z << "), t(" << dr.timestamp << ")>";
+    return os;
+}
+
+datarow::datarow(double d1, double d2, double d3, double d4, double d5, double d6, long long t){
     acc_x = d1, acc_y = d2, acc_z = d3;
     gyr_x = d4, gyr_y = d5, gyr_z = d6;
     timestamp = t;
@@ -30,8 +36,7 @@ map<int, string> gesture_acts::gname_map = {
 ostream &operator<<(ostream &os, const gesture_acts &ga){
     os << "Gesture [" << ga.gname_map.at(ga.gid);
     os << "] acts_id:" << ga.id;
-    //if(ga.uid != (char*)nullptr)
-        os << " user_id:" << ga.uid;
+    os << " user_id:" << ga.uid;
     os << " age:" << ga.age;
     os << " gender:" << (ga.gender ? "male" : "female");
     os << " hand:" << (ga.hand ? "right" : "left");
@@ -64,4 +69,3 @@ int gesture_acts::get_id(){
 vector<datarow> &gesture_acts::get_vec(){
     return vec_dr;
 }
-

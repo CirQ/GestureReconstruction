@@ -1,15 +1,15 @@
-#include "gesture_db.h"
+#include "src/gesture_reconstruct.h"
 
 using namespace std;
 
 int main(){
-    gesture_db d = gesture_db();
-    gesture_acts a;
+    gesture_reconstruct gr(299);
 
-    d.load_acts(387, a);
-    d.load_datarows(a);
+    cout << gr.get_acts() << endl;
 
-    cout << a.get_vec().data() << endl;
+    gr.reconstruct();
+
+    cout << gr.get_acts() << endl;
 
     return 0;
 }
