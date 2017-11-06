@@ -2,8 +2,6 @@
 // Created by cirq on 17-10-30.
 //
 
-#include <vector>
-#include "gesture_db.h"
 #include "gesture_reconstruct.h"
 
 using namespace std;
@@ -21,10 +19,8 @@ gesture_acts &gesture_reconstruct::get_acts(){
     return this->ga;
 }
 
-void gesture_reconstruct::reconstruct(){
+void gesture_reconstruct::reconstruct(void (*func)(const vector<datarow>&)){
     db.load_datarows(this->ga);
     const vector<datarow> &vec = this->ga.get_vec();
-    for(auto ptr = vec.begin(), e = vec.end(); ptr != e; ++ptr){
-        cout << *ptr << endl;
-    }
+    func(vec);
 }

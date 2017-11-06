@@ -1,15 +1,10 @@
 #include "src/gesture_reconstruct.h"
+#include "src/samsung.h"
 
 using namespace std;
 
 int main(){
     gesture_reconstruct gr(299);
-
-    cout << gr.get_acts() << endl;
-
-    gr.reconstruct();
-
-    cout << gr.get_acts() << endl;
-
+    gr.reconstruct(samsumg);
     return 0;
 }

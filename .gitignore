@@ -10,6 +10,8 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 
+lib
+
 .idea
 cmake-build-debug
 
